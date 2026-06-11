@@ -16,21 +16,29 @@ class SweepstakeController extends Controller
 
         // Known ESPN name variants → our DB name (all lowercase)
         $aliases = [
-            'bosnia-herzegovina'     => 'bosnia & herzegovina',
-            'bosnia and herzegovina' => 'bosnia & herzegovina',
+            // Bosnia
+            'bosnia-herzegovina'     => 'bosnia and herzegovina',
+            // Ivory Coast
             'ivory coast'            => "côte d'ivoire",
             "cote d'ivoire"          => "côte d'ivoire",
-            'cape verde'             => 'cabo verde',
+            // Cape Verde
+            'cabo verde'             => 'cape verde islands',
+            'cape verde'             => 'cape verde islands',
+            // Turkey
             'turkiye'                => 'turkey',
             'türkiye'                => 'turkey',
-            'dr congo'               => 'congo',
-            'congo dr'               => 'congo',
-            'korea republic'         => 'south korea',
-            'usa'                    => 'usa',
-            'united states'          => 'usa',
+            // Congo
+            'dr congo'               => 'congo dr',
+            // Korea
+            'south korea'            => 'korea republic',
+            // Czech Republic
+            'czechia'                => 'czech republic',
+            // USA
+            'usa'                    => 'united states',
+            // Netherlands
             'the netherlands'        => 'netherlands',
+            // Curaçao
             'curacao'                => 'curaçao',
-            'colombia'               => 'colombia',
         ];
 
         // Build a lookup: lowercase team name → [person, flag_url, avatar_url]
