@@ -820,6 +820,21 @@
 
         .match-card.upcoming-card { cursor: pointer; }
 
+        /* ── LEADERBOARD ── */
+        .leaderboard-row {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 14px 20px;
+            display: grid;
+            grid-template-columns: 32px 52px 1fr repeat(5, 48px) 56px;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .leaderboard-stat { text-align: center; }
+        .leaderboard-stat-val { font-size: 15px; font-weight: 500; }
+        .leaderboard-stat-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 640px) {
             .hero { padding: 40px 0 32px; }
@@ -827,6 +842,14 @@
             .people-grid { grid-template-columns: 1fr; }
             .match-grid { grid-template-columns: 1fr; }
             .tabs { overflow-x: auto; }
+
+            .leaderboard-row {
+                grid-template-columns: 28px 40px 1fr 52px;
+                padding: 12px 14px;
+                gap: 10px;
+            }
+
+            .leaderboard-hide-mobile { display: none; }
         }
     </style>
 </head>
@@ -963,17 +986,7 @@
         <div style="display:flex; flex-direction:column; gap:8px;">
             @foreach($leaderboard as $i => $row)
             @php $person = $row['person']; @endphp
-            <div style="
-                background: var(--surface);
-                border: 1px solid {{ $i === 0 ? 'rgba(245,197,24,0.3)' : 'var(--border)' }};
-                border-radius: 12px;
-                padding: 14px 20px;
-                display: grid;
-                grid-template-columns: 32px 52px 1fr repeat(5, 48px) 56px;
-                align-items: center;
-                gap: 12px;
-                {{ $i === 0 ? 'background: linear-gradient(135deg, rgba(245,197,24,0.06), var(--surface));' : '' }}
-            ">
+            <div class="leaderboard-row" style="border: 1px solid {{ $i === 0 ? 'rgba(245,197,24,0.3)' : 'var(--border)' }}; {{ $i === 0 ? 'background: linear-gradient(135deg, rgba(245,197,24,0.06), var(--surface));' : '' }}">
                 {{-- Rank --}}
                 <div style="font-family:'Anton',sans-serif; font-size:18px; color:{{ $i === 0 ? 'var(--gold)' : 'var(--muted2)' }}; text-align:center;">
                     {{ $i + 1 }}
@@ -984,49 +997,49 @@
                     style="width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid {{ $i === 0 ? 'var(--gold)' : 'var(--border2)' }};">
 
                 {{-- Name + teams --}}
-                <div>
-                    <div style="font-family:'Anton',sans-serif; font-size:16px; letter-spacing:0.02em;">{{ $person->name }}</div>
-                    <div style="font-size:11px; color:var(--muted); margin-top:1px;">
+                <div style="min-width:0;">
+                    <div style="font-family:'Anton',sans-serif; font-size:16px; letter-spacing:0.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $person->name }}</div>
+                    <div class="leaderboard-hide-mobile" style="font-size:11px; color:var(--muted); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
                         {{ $person->teams->pluck('name')->join(', ') }}
                     </div>
                 </div>
 
                 {{-- Played --}}
-                <div style="text-align:center;">
-                    <div style="font-size:15px; font-weight:500;">{{ $row['played'] }}</div>
-                    <div style="font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">P</div>
+                <div class="leaderboard-stat leaderboard-hide-mobile">
+                    <div class="leaderboard-stat-val">{{ $row['played'] }}</div>
+                    <div class="leaderboard-stat-label">P</div>
                 </div>
 
                 {{-- Wins --}}
-                <div style="text-align:center;">
-                    <div style="font-size:15px; font-weight:500; color:var(--green);">{{ $row['wins'] }}</div>
-                    <div style="font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">W</div>
+                <div class="leaderboard-stat leaderboard-hide-mobile">
+                    <div class="leaderboard-stat-val" style="color:var(--green);">{{ $row['wins'] }}</div>
+                    <div class="leaderboard-stat-label">W</div>
                 </div>
 
                 {{-- Draws --}}
-                <div style="text-align:center;">
-                    <div style="font-size:15px; font-weight:500; color:var(--muted);">{{ $row['draws'] }}</div>
-                    <div style="font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">D</div>
+                <div class="leaderboard-stat leaderboard-hide-mobile">
+                    <div class="leaderboard-stat-val" style="color:var(--muted);">{{ $row['draws'] }}</div>
+                    <div class="leaderboard-stat-label">D</div>
                 </div>
 
                 {{-- Losses --}}
-                <div style="text-align:center;">
-                    <div style="font-size:15px; font-weight:500; color:var(--red);">{{ $row['losses'] }}</div>
-                    <div style="font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">L</div>
+                <div class="leaderboard-stat leaderboard-hide-mobile">
+                    <div class="leaderboard-stat-val" style="color:var(--red);">{{ $row['losses'] }}</div>
+                    <div class="leaderboard-stat-label">L</div>
                 </div>
 
                 {{-- GD --}}
-                <div style="text-align:center;">
-                    <div style="font-size:15px; font-weight:500; color:{{ $row['gd'] > 0 ? 'var(--green)' : ($row['gd'] < 0 ? 'var(--red)' : 'var(--muted)') }};">
+                <div class="leaderboard-stat leaderboard-hide-mobile">
+                    <div class="leaderboard-stat-val" style="color:{{ $row['gd'] > 0 ? 'var(--green)' : ($row['gd'] < 0 ? 'var(--red)' : 'var(--muted)') }};">
                         {{ $row['gd'] > 0 ? '+' : '' }}{{ $row['gd'] }}
                     </div>
-                    <div style="font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">GD</div>
+                    <div class="leaderboard-stat-label">GD</div>
                 </div>
 
                 {{-- Points --}}
-                <div style="text-align:center; background:{{ $i === 0 ? 'rgba(245,197,24,0.12)' : 'var(--surface2)' }}; border-radius:8px; padding:6px 4px; border:1px solid {{ $i === 0 ? 'rgba(245,197,24,0.25)' : 'var(--border)' }};">
+                <div class="leaderboard-stat" style="background:{{ $i === 0 ? 'rgba(245,197,24,0.12)' : 'var(--surface2)' }}; border-radius:8px; padding:6px 4px; border:1px solid {{ $i === 0 ? 'rgba(245,197,24,0.25)' : 'var(--border)' }};">
                     <div style="font-family:'Anton',sans-serif; font-size:20px; color:{{ $i === 0 ? 'var(--gold)' : 'var(--text)' }}; line-height:1;">{{ $row['points'] }}</div>
-                    <div style="font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);">Pts</div>
+                    <div class="leaderboard-stat-label">Pts</div>
                 </div>
             </div>
             @endforeach
