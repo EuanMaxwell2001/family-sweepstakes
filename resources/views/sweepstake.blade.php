@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Cup 2026 — Family Sweepstake</title>
+    <title>World Cup 2026 — League of Super Evil Sweepstake</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -117,6 +117,7 @@
         .hero-title {
             font-family: 'Anton', sans-serif;
             font-size: clamp(52px, 8vw, 96px);
+            font-weight: 500;
             line-height: 0.95;
             letter-spacing: -0.02em;
             text-transform: uppercase;
@@ -835,7 +836,7 @@
 
     {{-- ── NAV ── --}}
     <nav class="nav">
-        <img src="https://www.weareeveryone.com/theme/images/site/everyone-white.svg" alt="Everyone" class="nav-logo">
+        <span class="nav-logo" style="font-size:1.1rem;font-weight:500;letter-spacing:0.05em;color:#fff;">League of Super Evil</span>
         <span class="nav-pill">World Cup 2026</span>
     </nav>
 
@@ -846,9 +847,9 @@
             FIFA World Cup 2026
         </div>
         <h1 class="hero-title">
-            Family<br><span class="accent">Sweepstake</span>
+            League of<br>Super Evil<br><span class="accent">Sweepstake</span>
         </h1>
-        <p class="hero-sub">Who's taking home the glory? Track your teams, watch the results unfold.</p>
+
         <div class="hero-stats">
             <div class="hero-stat">
                 <span class="hero-stat-val">{{ $people->where('is_office', false)->count() }}</span>
@@ -1096,7 +1097,7 @@
 <footer class="footer">
     <div class="wrap" style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;">
         <img src="https://www.weareeveryone.com/theme/images/site/everyone-white.svg" alt="Everyone" style="height:16px; opacity:0.4;">
-        <span>World Cup 2026 Sweepstake</span>
+        <span>League of Super Evil · World Cup 2026 Sweepstake</span>
         <span style="color:var(--muted2)">·</span>
         <span>Match data via ESPN</span>
         <span style="color:var(--muted2)">·</span>
